@@ -3,8 +3,15 @@ import Row from "@/components/Row";
 import Button from "@/components/Button";
 import { SafeAreaView, Text, View, StyleSheet, StatusBar, Platform } from "react-native";
 import { handleCalculatorLogic } from "../util/calculator";
+import { useColorScheme } from '@/hooks/useColorScheme';
+
 
 export default function Index() {
+	const colorScheme = useColorScheme();
+
+	const valueStyle = [styles.valueBig]
+	colorScheme === 'dark' ? valueStyle.push(styles.colorWhite) : styles.colorBlack
+
 	const [state, setState] = useState({
 		currentValue: "0",
 		operator: null,
@@ -28,9 +35,9 @@ export default function Index() {
 						marginRight: 20,
 						alignItems: 'center'
 					}}>
-						<Text style={styles.valueBig}>{state.currentValue === "0" ? 0 : state.currentValue}</Text>
-						<Text style={styles.valueBig}>{state.operator === null ? "" : state.operator}</Text>
-						<Text style={styles.valueBig}>{state.previousValue === null ? "" : state.previousValue}</Text>
+						<Text style={valueStyle}>{state.currentValue === "0" ? 0 : state.currentValue}</Text>
+						<Text style={valueStyle}>{state.operator === null ? "" : state.operator}</Text>
+						<Text style={valueStyle}>{state.previousValue === null ? "" : state.previousValue}</Text>
 					</View>
 					<Row>
 						<Button
@@ -149,7 +156,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	value: {
-		color: "#000",
+		color: '#000',
 		fontSize: 40,
 		textAlign: "right",
 		marginRight: 20,
@@ -162,5 +169,7 @@ const styles = StyleSheet.create({
 	},
 	valueBig: {
 		fontSize: 40
-	}
+	},
+	colorWhite: { color: '#FFF' },
+	colorBlack: { color: '#000' }
 });
